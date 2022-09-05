@@ -1,0 +1,14 @@
+name: Release
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      run: |
+        echo "start"
+        echo "$(git rev-parse --short HEAD)"
+        echo "end"
