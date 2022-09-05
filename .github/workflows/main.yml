@@ -12,6 +12,7 @@ jobs:
       run: |
         echo "start"
         echo "$(git rev-parse --short HEAD)"
+        sed -i "s/VERSION=\"\";/VERSION=\"xxxx\";/g" Test.java
         sed -i "s/GITHUB_SHA=\"\";/GITHUB_SHA=\"$(git rev-parse --short HEAD)\";/g" Test.java
         echo "end"
         cat Test.java
