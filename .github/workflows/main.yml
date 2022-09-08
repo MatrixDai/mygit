@@ -11,6 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
-        git log --merges
+        git log --merges > log.txt
+        echo $?
+        cat log.txt
         git --version
         git log --help
