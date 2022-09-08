@@ -11,4 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
+        git --version
         git log --grep="Merge" --pretty=oneline -1
+        git --version
+        git log --grep=Merge --pretty=oneline -1
+        git --version
+        git log --pretty=oneline -1
