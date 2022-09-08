@@ -1,6 +1,8 @@
 name: Release
 on:
   workflow_dispatch:
+    branches:
+      - '**'
 
 jobs:
   release:
@@ -11,5 +13,6 @@ jobs:
     - name: Test
       run: |
         git log --grep="Merge" --pretty=oneline -1
-        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
-        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
+        git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
+        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1)
+        echo $pr
