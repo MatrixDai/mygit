@@ -10,9 +10,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Test
       run: |
-        echo "start"
-        echo "$(git rev-parse --short HEAD)"
-        sed -i "s/VERSION=\"\";/VERSION=\"xxxx\";/g" Test.java
-        sed -i "s/GITHUB_SHA=\"\";/GITHUB_SHA=\"$(git rev-parse --short HEAD)\";/g" Test.java
-        echo "end"
-        cat Test.java
+        git log --grep="Merge" --pretty=oneline -1
+        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
+        pr=$(git log --grep="Merge pull request #[0-9]\\+" --pretty=oneline -1
