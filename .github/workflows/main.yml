@@ -12,4 +12,4 @@ jobs:
       run: |
         git log --grep="Merge" --pretty=oneline -1
         pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
-        pr=$(git log --grep="Merge pull request #[0-9]\\+" --pretty=oneline -1
+        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
