@@ -10,10 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Test
-      shell: bash
-      run: |
+    - run: |
         git log --grep="Merge" --pretty=oneline -1
-        git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1
-        pr=$(git log --grep="Merge pull request #[0-9]\+" --pretty=oneline -1)
-        echo $pr
