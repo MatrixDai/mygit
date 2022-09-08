@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
-        git log --pretty=oneline -2
+        git log --pretty=oneline --merges
         git --version
         git log --help
