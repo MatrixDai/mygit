@@ -2,8 +2,7 @@ name: Release
 
 on:
   pull_request:
-    type:
-      - closed
+    types: [closed]
   workflow_dispatch:
 
 jobs:
