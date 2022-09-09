@@ -40,6 +40,8 @@ jobs:
     steps:
       - name: Checkout RTR repo
         uses: actions/checkout@v3
+        with:
+          FETCH-DEPTH: 0
       - name: verify
         run: |
           echo ${GITHUB_HEAD_REF}
