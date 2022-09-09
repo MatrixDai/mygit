@@ -6,10 +6,6 @@ on:
   pull_request:
     types: [opened, ready_for_review, reopened, synchronize]
   workflow_dispatch:
-    branches:
-      - '**'
-      - '!main'
-
 # Environment variables can be overridden in .github/env/prod
 env:
   PR_NUMBER: ${{ github.event.number }}
@@ -30,6 +26,7 @@ jobs:
         now=$(date)
         echo Append $now
         echo "$(date)" >> test.txt
+        git checkout "${GITHUB_HEAD_REF}"
         git config --global user.name 'Version robot'
         git config --global user.email 'robot@aurea.com'
         git add test.txt
@@ -43,6 +40,15 @@ jobs:
     steps:
       - name: Checkout RTR repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: verify
         run: |
+          git checkout "${GITHUB_HEAD_REF}"
           cat test.txt
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: My-pr-${{ env.PR_NUMBER }}
+          path: |
+            *

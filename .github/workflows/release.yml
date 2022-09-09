@@ -18,3 +18,14 @@ jobs:
     - name: Parse PR number from latest commit message
       run: |
         echo The merged PR number is "${{ github.event.pull_request.number }}"
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: build.yml
+        pr: ${{ github.event.pull_request.number }}
+    - name: verify
+      run: |
+        ls
+        cat test.txt
+        cat My-pr-${{ github.event.pull_request.number }}/test.txt
