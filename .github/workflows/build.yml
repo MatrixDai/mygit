@@ -45,5 +45,5 @@ jobs:
       - name: verify
         run: 
           git checkout "${GITHUB_HEAD_REF}"
-          git pull --no-rebase
+          git pull
           cat test.txt
