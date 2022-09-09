@@ -6,9 +6,6 @@ on:
   pull_request:
     types: [opened, ready_for_review, reopened, synchronize]
   workflow_dispatch:
-    branches:
-      - '**'
-      - '!main'
 
 # Environment variables can be overridden in .github/env/prod
 env:
@@ -45,4 +42,5 @@ jobs:
         uses: actions/checkout@v3
       - name: verify
         run: |
+          echo ${$GITHUB_HEAD_REF}
           cat test.txt
