@@ -6,7 +6,9 @@ on:
   pull_request:
     types: [opened, ready_for_review, reopened, synchronize]
   workflow_dispatch:
-
+    branches:
+      - '**'
+      - '!main'
 # Environment variables can be overridden in .github/env/prod
 env:
   PR_NUMBER: ${{ github.event.number }}
