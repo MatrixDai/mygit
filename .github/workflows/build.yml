@@ -43,6 +43,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: verify
-        run: |
+        run: 
+          git checkout "${GITHUB_HEAD_REF}"
           git pull --no-rebase
           cat test.txt
