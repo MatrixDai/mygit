@@ -23,6 +23,7 @@ jobs:
       with:
         workflow: build.yml
         pr: ${{ github.event.pull_request.number }}
+        search_artifacts: true
     - name: verify
       run: |
         ls
