@@ -42,5 +42,5 @@ jobs:
         uses: actions/checkout@v3
       - name: verify
         run: |
-          echo ${$GITHUB_HEAD_REF}
+          echo ${GITHUB_HEAD_REF}
           cat test.txt
