@@ -11,3 +11,4 @@ jobs:
     - name: Debug
       run: |
         echo "Current commit: ${GITHUB_REF}"
+        echo "Test commit: $(git rev-parse --short HEAD)"
