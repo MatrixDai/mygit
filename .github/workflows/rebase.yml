@@ -5,11 +5,17 @@ on:
     branches: [master]
 
 jobs:
+#   rebase:
+#     runs-on: ubuntu-latest
+#     name: Rebase
+#     steps:
+#       - name: Rebase Open Pull Requests
+#         uses: linhbn123/rebase-pull-requests@v1.0.1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   rebase:
     runs-on: ubuntu-latest
-    name: Rebase
     steps:
-      - name: Rebase Open Pull Requests
-        uses: linhbn123/rebase-pull-requests@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/rebase@v2
+        with:
+          base: main
