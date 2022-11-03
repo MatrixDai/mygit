@@ -3,7 +3,7 @@ name: Deploy PR as ECS Service
 on:
   workflow_run:
     workflows: ["Installer Build"]
-    types: [requested]
+    types: [completed]
   workflow_dispatch:
     inputs:
       target_app_server:
