@@ -1,54 +1,16 @@
-# This workflow builds Lithium RTR.
-
-name: Build
+name: Installer Build
 
 on:
   pull_request:
     types: [opened, ready_for_review, reopened, synchronize]
   workflow_dispatch:
-# Environment variables can be overridden in .github/env/prod
-env:
-  PR_NUMBER: ${{ github.event.number }}
 
 jobs:
-  update-version:
-    permissions: write-all
-    name: Increase the patch number
+  versions:
+    name: Check Version Number
+    permissions: read-all
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Patch number update
-      id: diff_version
+    - name: Build
       run: |
-        echo "Updating the patch number for the Makefile"
-        now=$(date)
-        echo Append $now
-        echo "$(date)" >> test.txt
-        git checkout "${GITHUB_HEAD_REF}"
-        git config --global user.name 'Version robot'
-        git config --global user.email 'robot@aurea.com'
-        git add test.txt
-        git commit -m "Bump version to $version_new"
-        git push
-  build-rtr:
-    name: Build RTR
-    needs: update-version
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - name: Checkout RTR repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: verify
-        run: |
-          git checkout "${GITHUB_HEAD_REF}"
-          cat test.txt
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: My-pr-${{ env.PR_NUMBER }}
-          path: |
-            *
+        echo "I'm build workflow"

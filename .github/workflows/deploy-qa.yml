@@ -1,0 +1,51 @@
+name: Deploy PR as ECS Service
+
+on:
+  workflow_run:
+    workflows: ["Installer Build"]
+    types: [requested]
+  workflow_dispatch:
+    inputs:
+      target_app_server:
+        required: false
+        description: "Configuration"
+        type: choice
+        default: ''
+        options:
+        - WildFly
+        - WebLogic
+        - Both
+      db_seed_file:
+        required: false
+        default: ''
+        description: "The seed sql file name in folder liquibase/sql/seed, example: additional-domain.sql"
+
+env:
+  AWS_REGION: us-east-1  
+  ECS_CLUSTER: qa
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    if: ${{ (github.event.workflow_run.conclusion == 'success') || (github.event.inputs) }}
+    outputs:
+      branch: ${{ steps.setup.outputs.branch }}
+      pr: ${{ steps.setup.outputs.pr }}
+      target_app_server: ${{ steps.setup.outputs.target_app_server }}
+      db_seed_file: ${{ steps.setup.outputs.db_seed_file }}
+    steps:
+      - name: Setup
+        run: |
+          echo "Branch: {{ github.event.workflow_run.head_branch }}"
+          echo "PR: {{ github.event.workflow_run.pull_requests }}"
+          if [[ "${{ github.event.workflow_run.conclusion }}" == "success" ]]; then
+            echo "branch={{ github.event.workflow_run.head_branch }}" >> $GITHUB_OUTPUT
+            echo "pr={{ github.event.workflow_run.pull_requests[0] }}" >> $GITHUB_OUTPUT
+            echo "target_app_server=''" >> $GITHUB_OUTPUT
+            echo "db_seed_file=''" >> $GITHUB_OUTPUT
+          else
+            echo "branch={{ github.event.ref }}" >> $GITHUB_OUTPUT
+            echo "pr=''" >> $GITHUB_OUTPUT
+            echo "target_app_server='${{ github.event.inputs.target_app_server }}'" >> $GITHUB_OUTPUT
+            echo "db_seed_file='${{ github.event.inputs.db_seed_file }}'" >> $GITHUB_OUTPUT
+          fi
