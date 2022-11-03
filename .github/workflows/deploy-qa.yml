@@ -37,22 +37,26 @@ jobs:
       - name: Prepare variables
         run: |
           if [[ "${{ github.event.workflow_run.conclusion }}" == "success" ]]; then
-            echo "branch=${{ github.event.workflow_run.head_branch }}" >> $GITHUB_OUTPUT
+            branch="${{ github.event.workflow_run.head_branch }}"
+            echo "branch=${branch}" >> $GITHUB_OUTPUT
             if [[ "${{ github.event.workflow_run.pull_requests }}" != "" ]]; then
               pr="${{ github.event.workflow_run.pull_requests[0].number }}"
             else
               pr=""
             fi
-            echo "pr=$pr" >> $GITHUB_OUTPUT
-            echo "target_app_server=''" >> $GITHUB_OUTPUT
-            echo "db_seed_file=''" >> $GITHUB_OUTPUT
-            echo "Branch: ${{ github.event.workflow_run.head_branch }}"
-            echo "PR: ${pr}"
+            target_app_server=""
+            db_seed_file=""
           else
             branch="${GITHUB_REF#refs/heads/}"
-            echo "branch=$branch" >> $GITHUB_OUTPUT
-            echo "pr=''" >> $GITHUB_OUTPUT
-            echo "target_app_server='${{ github.event.inputs.target_app_server }}'" >> $GITHUB_OUTPUT
-            echo "db_seed_file='${{ github.event.inputs.db_seed_file }}'" >> $GITHUB_OUTPUT
-            echo "Branch: ${branch}"
+            pr=""
+            target_app_server="${{ github.event.inputs.target_app_server }}"
+            db_seed_file="${{ github.event.inputs.db_seed_file }}"
           fi
+          echo "Branch: ${branch}"
+          echo "PR: ${pr}"
+          echo "Target app server: ${target_app_server}"
+          echo "Data seed file: ${db_seed_file}"
+          echo "branch=$branch" >> $GITHUB_OUTPUT
+          echo "pr=$pr" >> $GITHUB_OUTPUT
+          echo "target_app_server=$target_app_server" >> $GITHUB_OUTPUT
+          echo "db_seed_file=$db_seed_file" >> $GITHUB_OUTPUT
