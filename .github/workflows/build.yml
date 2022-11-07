@@ -13,4 +13,7 @@ jobs:
     steps:
     - name: Build
       run: |
+        # This is coment
         echo "I'm build workflow"
+        # This is comment 2
+        echo "After comment"
